@@ -36,10 +36,10 @@ button:hover {
 
 .class-for-game {
 
-        min-height: 100vh;
-        min-width: 100vw;
-        background-color: black;
-        color: white;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: black;
+    color: white;
 
 
     h1 {
@@ -55,7 +55,7 @@ button:hover {
     }
 
     .actions {
-        display:flex;
+        display: flex;
         justify-content: center;
     }
 
@@ -73,7 +73,50 @@ button:hover {
         grid-gap: 16px;
         grid-template-columns: repeat(6, 140px);
         grid-template-rows: repeat(2, calc(140px / 2 * 3));
+    }
 
+    .card {
+        height: calc(140px / 2 * 3);
+        width: 140px;
+        border-radius: 10px;
+        background-color: white;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .front-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .card.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .front,
+    .back {
+        backface-visibility: hidden;
+        position: absolute;
+        border-radius: 10px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+    .card .front {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: rotateY(180deg);
+    }
+
+    .card .back {
+        background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png");
+        background-position: center center;
+        background-size: cover;
+        backface-visability: hidden;
     }
 
 }
+
