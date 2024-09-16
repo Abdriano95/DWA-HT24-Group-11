@@ -23,3 +23,4 @@ function setContent(text) {
     menu.style.display = 'none';
     content.style.display = 'block';
 }
+
