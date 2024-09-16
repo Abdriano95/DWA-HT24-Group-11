@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Web Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Menu</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    
-    <p>This is a paragraph of text.</p>
-    
-    <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-    </ul>
-    
-    <p>Thank you for visiting!</p>
+<!-- Navigation Menu -->
+<div id="menu">
+    <h1>Game Menu</h1>
+    <button onclick="playGame()">Play Game</button>
+    <button onclick="showInstructions()">Instructions</button>
+    <button onclick="showHighscore()">High scores</button>
+    <button onclick="quitGame()">Quit</button>
+</div>
+<div id="content"></div>
+<script src="app.js"></script>
 </body>
 </html>
