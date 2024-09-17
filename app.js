@@ -51,6 +51,11 @@ function showHighscore() {
 
 function quitGame() {
     setContent('Exiting Game...');
+
+    //Attempt to close the window after displaying the exit message
+    setTimeout(() => {
+        window.close();
+    }, 2000); // Adds a delay of 2 second before closing the window.
 }
 
 function setContent(text) {
