@@ -4,7 +4,7 @@ function playGame() {
 }
 
 function showInstructions() {
-    setContent('Instructions shown here');
+    window.location.href = 'instructions.html';
 }
 
 function showHighscore() {
