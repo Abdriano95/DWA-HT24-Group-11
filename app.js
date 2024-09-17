@@ -1,6 +1,6 @@
 //Game menu
 function playGame() {
-    setContent('Game Starting...');
+    window.location.href = 'game.html';
 }
 
 function showInstructions() {
