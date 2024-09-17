@@ -46,7 +46,7 @@ function showInstructions() {
 }
 
 function showHighscore() {
-    setContent('Highscore...');
+    window.location.href = 'highscores.html';
 }
 
 function quitGame() {
