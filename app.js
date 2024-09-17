@@ -38,11 +38,11 @@ function generateCards() {
 
 //Game menu
 function playGame() {
-    setContent('Game Starting...');
+    window.location.href = 'game.html';
 }
 
 function showInstructions() {
-    setContent('Instructions shown here');
+    window.location.href = 'instructions.html';
 }
 
 function showHighscore() {
