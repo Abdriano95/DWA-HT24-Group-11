@@ -5,17 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Menu</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        #menu.hidden {
+            display: none;
+        }
+        .back-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation Menu -->
 <div id="menu">
     <h1>Game Menu</h1>
     <button onclick="playGame()">Play Game</button>
-    <button onclick="showInstructions()">Instructions</button>
+    <button onclick="showPage('instructions')">Instructions</button>
     <button onclick="showHighscore()">High scores</button>
     <button onclick="quitGame()">Quit</button>
 </div>
+
+<!-- Instructions Page -->
+<div id="instructions" class="page">
+    <button class="back-button" onclick="showPage('menu')">Back to Menu</button>
+    <h1>Memory Game Instructions</h1>
+    <h2>Objective</h2>
+    <p>The goal of the memory game is to find all matching pairs of cards. The game is won when all pairs have been matched.</p>
+    <h2>How to Play</h2>
+    <ol>
+        <li><strong>Start the Game:</strong> When you open the game, you will see a grid of facedown cards.</li>
+        <li><strong>Flip Two Cards:</strong> Click on any card to flip it over and reveal the symbol or letter on the other side. Click on a second card to flip it over as well.</li>
+        <li><strong>Check for a Match:</strong> If the symbols or letters on the two flipped cards match, they remain face up. If they do not match, after a short delay, both cards will flip back over to their facedown positions.</li>
+        <li><strong>Continue Playing:</strong> Repeat steps 2 and 3, flipping two cards at a time, until all pairs have been found.</li>
+        <li><strong>Winning the Game:</strong> The game is over when all pairs of cards have been matched and are face up. Congratulations, you’ve won the game!</li>
+    </ol>
+    <h2>Tips and Strategies</h2>
+    <ul>
+        <li><strong>Remember the Cards:</strong> Pay close attention to the symbols or letters on the cards you have flipped over. Try to remember their positions to match pairs more effectively.</li>
+        <li><strong>Take Your Time:</strong> There is no time limit, so take your time to memorize card positions.</li>
+        <li><strong>Concentration:</strong> The key to winning is concentration. Try to focus and avoid distractions.</li>
+    </ul>
+    <h2>Additional Features</h2>
+    <ul>
+        <li><strong>Restarting the Game:</strong> If you want to play again, refresh the browser page to shuffle the cards and start a new game.</li>
+        <li><strong>Customizing the Game:</strong> For more advanced players, you can increase the difficulty by using a larger grid or more diverse symbols.</li>
+    </ul>
+</div>
 <div id="content"></div>
+
 <script src="app.js"></script>
+
+<script>
+    // JavaScript to handle page visibility
+    function showPage(pageId) {
+        // Hide menu on all pages except the menu
+        if (pageId !== 'menu') {
+            document.getElementById('menu').classList.add('hidden');
+        } else {
+            document.getElementById('menu').classList.remove('hidden');
+        }
+
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    function quitGame() {
+        alert('Exiting game...');
+    }
+
+    // Initialize with the menu page visible
+    showPage('menu');
+</script>
 </body>
 </html>
