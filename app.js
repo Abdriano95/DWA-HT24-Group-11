@@ -19,6 +19,71 @@ const cardData = [
     {name: 'card10', emoji: '🦓'}
 ];
 
+// Login functionality
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Hardcoded user validation
+    if (username === 'hacker' && password === '123') {
+        loginSuccess();
+    } else {
+        // Hash password before sending
+        const hashedPassword = hashPassword(password);
+        validateUser(username, hashedPassword);
+    }
+});
+
+function loginSuccess() {
+    document.getElementById('login').classList.remove('active');
+    showPage('menu');
+}
+
+function loginFailure(message) {
+    const loginMessage = document.getElementById('loginMessage');
+    loginMessage.textContent = message;
+    loginMessage.style.color = 'red';
+}
+
+function validateUser(username, password) {
+    const url = 'https://example.com/api/login'; // Replace with the actual web service URL
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password }) // Send hashed password
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loginSuccess();
+            } else {
+                loginFailure(data.message || 'Invalid credentials.');
+            }
+        })
+        .catch(error => {
+            loginFailure('Error connecting to the login service.');
+            console.error('Login error:', error);
+        });
+}
+
+// Password hashing function
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString();
+}
+
+
+// Function to hash the password (for real users)
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString();
+}
+
+
+
 //Game logic
 document.querySelector(".score").textContent = score;
 cards = [...cardData, ...cardData];

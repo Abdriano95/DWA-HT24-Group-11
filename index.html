@@ -45,8 +45,25 @@
             background-color: #f5f5f5;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 </head>
 <body>
+<!-- Login form -->
+<div id="login" class="page active">
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    <p id="loginMessage"></p>
+</div>
+
 <!-- Navigation Menu -->
 <div id="menu">
     <h1>Game Menu</h1>
@@ -154,25 +171,32 @@
 <script>
     // JavaScript to handle page visibility
     function showPage(pageId) {
+        // Hide all pages first
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+
+        // Show the selected page
+        document.getElementById(pageId).classList.add('active');
+
         // Hide menu on all pages except the menu
         if (pageId !== 'menu') {
             document.getElementById('menu').classList.add('hidden');
         } else {
             document.getElementById('menu').classList.remove('hidden');
         }
-
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById(pageId).classList.add('active');
     }
+
 
     function quitGame() {
         alert('Exiting game...');
     }
 
-    // Initialize with the menu page visible
-    showPage('menu');
+    // Ensure login page is shown initially when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        showPage('login');
+    });
+
 </script>
 </body>
 </html>
