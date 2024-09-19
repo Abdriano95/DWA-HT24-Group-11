@@ -20,7 +20,6 @@ const cardData = [
 ];
 
 // Login functionality
-
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -31,13 +30,13 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     if (username === 'hacker' && password === '123') {
         loginSuccess();
     } else {
-        // Send request to web service for validation
-        validateUser(username, password);
+        // Hash password before sending
+        const hashedPassword = hashPassword(password);
+        validateUser(username, hashedPassword);
     }
 });
 
 function loginSuccess() {
-    // Display game page and hide login page
     document.getElementById('login').classList.remove('active');
     showPage('menu');
 }
@@ -48,18 +47,15 @@ function loginFailure(message) {
     loginMessage.style.color = 'red';
 }
 
-// Function to validate user credentials through a web service
 function validateUser(username, password) {
-    // Example: Simulating an API call
-    const url = 'https://example.com/api/login';  // Replace with the actual web service URL
-    const hashedPassword = hashPassword(password);  // Optionally hash the password
+    const url = 'https://example.com/api/login'; // Replace with the actual web service URL
 
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password: hashedPassword }) // Send data to server
+        body: JSON.stringify({ username, password }) // Send hashed password
     })
         .then(response => response.json())
         .then(data => {
@@ -74,6 +70,12 @@ function validateUser(username, password) {
             console.error('Login error:', error);
         });
 }
+
+// Password hashing function
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString();
+}
+
 
 // Function to hash the password (for real users)
 function hashPassword(password) {
