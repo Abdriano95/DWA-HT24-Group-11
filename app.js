@@ -71,11 +71,6 @@ function validateUser(username, password) {
         });
 }
 
-// Password hashing function
-function hashPassword(password) {
-    return CryptoJS.SHA256(password).toString();
-}
-
 
 // Function to hash the password (for real users)
 function hashPassword(password) {
