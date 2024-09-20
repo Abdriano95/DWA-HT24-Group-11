@@ -126,8 +126,11 @@ function flipCard() {
         return;
     }
     secondCard = this;
+    /*
     score++;
     document.querySelector(".score").textContent = score;
+    */
+
     lockBoard = true;
 
     checkForMatch();
@@ -145,6 +148,10 @@ function disableCards() {
 }
 
 function unflipCards() {
+
+    score++;
+    document.querySelector(".score").textContent = score;
+
     setTimeout(() => {
         firstCard.classList.remove("flipped");
         secondCard.classList.remove("flipped");
@@ -175,8 +182,8 @@ function showPage(pageId) {
     document.getElementById(pageId).style.display = 'block';
 }
 
-
 //Game menu
+
 function playGame() {
     window.location.href = 'game.html';
 }

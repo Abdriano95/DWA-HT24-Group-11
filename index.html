@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Menu</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
         .page {
             display: none;
@@ -65,9 +66,10 @@
 </div>
 
 <!-- Navigation Menu -->
-<div id="menu">
+<div id="menu" class="page">
     <h1>Game Menu</h1>
-    <button onclick="playGame()">Play Game</button>
+    <button onclick="showPage('game')">Play Game</button>
+    <!-- <button onclick="playGame()">Play Game</button> -->
     <button onclick="showPage('instructions')">Instructions</button>
     <button onclick="showPage('highscore')">Highscores</button>
     <button onclick="quitGame()">Quit</button>
@@ -79,12 +81,10 @@
 
 <!-- Game Page -->
 
-<div id="game" class="page" style="display: none;">
-    <button class="back-button" onclick="showPage('menu')">Back to Menu</button>
+<div id="game" class="page">
+    <!-- <button class="back-button" onclick="showPage('menu')">Back to Menu</button> -->
     <h1>Memory Game</h1>
-    <div class="grid-container">
-        <!-- Kort kommer att skapas här av JavaScript -->
-    </div>
+    <div class="grid-container"></div>
     <p>Score: <span class="score"></span></p>
     <div class="actions">
         <button onclick="restart()">Restart</button>
@@ -163,39 +163,11 @@
     </table>
 </div>
 
-
-
-
 <script src="app.js"></script>
 
 <script>
-    // JavaScript to handle page visibility
-    function showPage(pageId) {
-        // Hide all pages first
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
 
-        // Show the selected page
-        document.getElementById(pageId).classList.add('active');
-
-        // Hide menu on all pages except the menu
-        if (pageId !== 'menu') {
-            document.getElementById('menu').classList.add('hidden');
-        } else {
-            document.getElementById('menu').classList.remove('hidden');
-        }
-    }
-
-
-    function quitGame() {
-        alert('Exiting game...');
-    }
-
-    // Ensure login page is shown initially when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        showPage('login');
-    });
+    showPage('menu');
 
 </script>
 </body>
