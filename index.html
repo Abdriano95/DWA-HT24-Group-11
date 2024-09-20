@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Menu</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
         .page {
             display: none;
@@ -65,9 +66,7 @@
 <div id="game" class="page" style="display: none;">
     <button class="back-button" onclick="showPage('menu')">Back to Menu</button>
     <h1>Memory Game</h1>
-    <div class="grid-container">
-        <!-- Kort kommer att skapas här av JavaScript -->
-    </div>
+    <div class="grid-container"></div>
     <p>Score: <span class="score"></span></p>
     <div class="actions">
         <button onclick="restart()">Restart</button>
@@ -146,32 +145,9 @@
     </table>
 </div>
 
-
-
-
 <script src="app.js"></script>
 
 <script>
-    // JavaScript to handle page visibility
-    function showPage(pageId) {
-        // Hide menu on all pages except the menu
-        if (pageId !== 'menu') {
-            document.getElementById('menu').classList.add('hidden');
-        } else {
-            document.getElementById('menu').classList.remove('hidden');
-        }
-
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById(pageId).classList.add('active');
-    }
-
-    function quitGame() {
-        alert('Exiting game...');
-    }
-
-    // Initialize with the menu page visible
     showPage('menu');
 </script>
 </body>
