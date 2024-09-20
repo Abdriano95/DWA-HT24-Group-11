@@ -197,13 +197,6 @@ function playGame() {
     window.location.href = 'game.html';
 }
 
-function showInstructions() {
-    window.location.href = 'instructions.html';
-}
-
-function showHighscore() {
-    window.location.href = 'highscores.html';
-}
 
 function quitGame() {
     setContent('Exiting Game...');
