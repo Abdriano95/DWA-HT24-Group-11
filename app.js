@@ -172,6 +172,9 @@ function restart() {
     generateCards();
 }
 
+function saveHighscore() {
+
+}
 
 
 
