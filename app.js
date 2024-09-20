@@ -66,8 +66,11 @@ function flipCard() {
         return;
     }
     secondCard = this;
+    /*
     score++;
     document.querySelector(".score").textContent = score;
+    */
+
     lockBoard = true;
 
     checkForMatch();
@@ -85,6 +88,10 @@ function disableCards() {
 }
 
 function unflipCards() {
+
+    score++;
+    document.querySelector(".score").textContent = score;
+
     setTimeout(() => {
         firstCard.classList.remove("flipped");
         secondCard.classList.remove("flipped");
@@ -107,9 +114,6 @@ function restart() {
     generateCards();
 }
 
-
-
-
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.style.display = 'none';
@@ -117,17 +121,9 @@ function showPage(pageId) {
     // Show the selected page
     document.getElementById(pageId).style.display = 'block';
 }
-/*
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    // Show the selected page
-    document.getElementById(pageId).classList.add('active');
-}
-*/
 
 //Game menu
+
 function playGame() {
     window.location.href = 'game.html';
 }
