@@ -80,13 +80,13 @@ button:hover {
         display: grid;
         justify-content: center;
         grid-gap: 16px;
-        grid-template-columns: repeat(5, 140px);
-        grid-template-rows: repeat(4, 140px);
+        grid-template-columns: repeat(5, 120px);
+        grid-template-rows: repeat(4, 120px);
     }
 
     #game .card {
-        height: 140px;
-        width: 140px;
+        height: 120px;
+        width: 120px;
         border-radius: 10px;
         background-color: white;
         position: relative;
