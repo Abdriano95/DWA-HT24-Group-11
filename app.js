@@ -106,7 +106,10 @@ function restart() {
     gridContainer.innerHTML = "";
     generateCards();
 }
-/*
+
+
+
+
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.style.display = 'none';
@@ -114,7 +117,7 @@ function showPage(pageId) {
     // Show the selected page
     document.getElementById(pageId).style.display = 'block';
 }
-*/
+/*
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
@@ -122,7 +125,7 @@ function showPage(pageId) {
     // Show the selected page
     document.getElementById(pageId).classList.add('active');
 }
-
+*/
 
 //Game menu
 function playGame() {

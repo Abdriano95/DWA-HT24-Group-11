@@ -15,6 +15,10 @@ body {
     text-align: center;
 }
 
+.page {
+    display: none;
+}
+
 button {
     display: block;
     margin: 10px auto;
@@ -34,7 +38,7 @@ button:hover {
     display: none;
 }
 
-.class-for-game {
+#game {
 
     min-height: 100vh;
     min-width: 100vw;
@@ -43,26 +47,27 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
 
-    h1 {
+    #game h1 {
         text-align: center;
         font-weight: 700;
         font-size: 50px;
-    }
+        }
 
-    p {
+    #game p {
         text-align: center;
         font-size: 30px;
         font-weight: bold;
     }
 
-    .actions {
+    #game .actions {
         display: flex;
         justify-content: center;
     }
 
-    .actions button {
+    #game .actions button {
         padding: 8px 16px;
         font-size: 30px;
         border-radius: 10px;
@@ -71,7 +76,7 @@ button:hover {
         border: none;
     }
 
-    .grid-container {
+    #game .grid-container {
         display: grid;
         justify-content: center;
         grid-gap: 16px;
@@ -79,7 +84,7 @@ button:hover {
         grid-template-rows: repeat(4, 140px);
     }
 
-    .card {
+    #game .card {
         height: 140px;
         width: 140px;
         border-radius: 10px;
@@ -94,12 +99,12 @@ button:hover {
     }
 
 
-    .card.flipped {
+    #game .card.flipped {
         transform: rotateY(180deg);
     }
 
-    .front,
-    .back {
+    #game .front,
+    #game .back {
         backface-visibility: hidden;
         position: absolute;
         border-radius: 10px;
@@ -111,12 +116,12 @@ button:hover {
         justify-content: center;
         align-items: center;
     }
-    .card .front {
+    #game .card .front {
         transform: rotateY(180deg);
         z-index: 2;
     }
 
-    .card .back {
+    #game .card .back {
         background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png");
         background-position: center center;
         background-size: cover;
@@ -124,5 +129,5 @@ button:hover {
 
     }
 
-}
+
 

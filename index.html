@@ -49,9 +49,10 @@
 </head>
 <body>
 <!-- Navigation Menu -->
-<div id="menu">
+<div id="menu" class="page">
     <h1>Game Menu</h1>
-    <button onclick="playGame()">Play Game</button>
+    <button onclick="showPage('game')">Play Game</button>
+    <!-- <button onclick="playGame()">Play Game</button> -->
     <button onclick="showPage('instructions')">Instructions</button>
     <button onclick="showPage('highscore')">Highscores</button>
     <button onclick="quitGame()">Quit</button>
@@ -63,8 +64,8 @@
 
 <!-- Game Page -->
 
-<div id="game" class="page" style="display: none;">
-    <button class="back-button" onclick="showPage('menu')">Back to Menu</button>
+<div id="game" class="page">
+    <!-- <button class="back-button" onclick="showPage('menu')">Back to Menu</button> -->
     <h1>Memory Game</h1>
     <div class="grid-container"></div>
     <p>Score: <span class="score"></span></p>
