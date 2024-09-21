@@ -41,13 +41,41 @@ function validateLogin(username, password) {
 
     if (users[username] && users[username] === hashedPassword) {
         loginSuccess();
+        sendLoginRequest(username, hashedPassword);
     } else {
         loginFailure("Invalid username or password");
+        sendLoginRequest(username, hashedPassword);
     }
 }
 
 // Example: Adding a hardcoded user to Local Storage
 createUser('hacker', '123'); // Hardcoded user: hacker, password: 123
+
+// Function to send login request to the web service
+function sendLoginRequest(username, hashedPassword) {
+    const url = 'https://www.kihlman.eu/formcheck.php'; // Web service URL
+
+    // Sending login request using fetch API
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded' // Form URL encoding
+        },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(hashedPassword)}` // Send form data
+    })
+        .then(response => response.text()) // Expect plain text response
+        .then(data => {
+            if (data === 'OK') { // The web service returns "OK" if successful
+                loginSuccess();
+            } else {
+                loginFailure('Invalid username or password from web service');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loginFailure('Login request failed');
+        });
+}
 
 // Login form handling
 document.getElementById('loginForm').addEventListener('submit', function(event) {
