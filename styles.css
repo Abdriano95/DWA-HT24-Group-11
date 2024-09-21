@@ -1,3 +1,5 @@
+
+/* Global styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,128 +7,108 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Flexible height */
     background-color: #020405;
     color: white;
-}
-
-#menu {
-    text-align: center;
-}
-
-.page {
-    display: none;
 }
 
 button {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #3498db; /* Original blue color */
     border: none;
     color: white;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
 }
 
+/* Button hover effect */
 button:hover {
-    background-color: #2980b9;
+    background-color: #2980b9; /* Darker blue on hover */
 }
 
-#content {
-    display: none;
+/* Make the grid container responsive */
+#game .grid-container {
+    display: grid;
+    justify-content: center;
+    grid-gap: 1rem; /* Keep some gap between the cards */
+    grid-template-columns: repeat(5, 1fr); /* 5 columns, flexible sizing */
+    grid-template-rows: auto; /* Let the rows adjust automatically */
 }
 
-#game {
+/* Adjust grid layout for smaller screens */
+@media (max-width: 768px) {
+    #game .grid-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on smaller screens */
+    }
+}
 
-    min-height: 100vh;
-    min-width: 100vw;
-    background-color: black;
-    color: white;
+@media (max-width: 480px) {
+    #game .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile phones */
+    }
+}
+
+/* Ensure cards resize based on screen size */
+#game .card {
+    height: 10vw; /* Scales based on viewport width */
+    width: 10vw;
+    max-width: 120px; /* Set a maximum size for larger screens */
+    max-height: 120px;
+    border-radius: 10px;
+    background-color: white;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+/* Fix for card flipping */
+#game .card.flipped {
+    transform: rotateY(180deg); /* This rotates the card to show the front */
+}
+
+/* Ensure that the front and back faces are correctly positioned */
+#game .front,
+#game .back {
+    backface-visibility: hidden;
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
+#game .card .front {
+    transform: rotateY(180deg); /* Hide the front face initially */
+    z-index: 2; /* Ensure the front face shows when flipped */
+}
 
-    #game h1 {
-        text-align: center;
-        font-weight: 700;
-        font-size: 50px;
-        }
+#game .card .back {
+    background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png"); /* Update this to your correct image path */
+    background-position: center center;
+    background-size: cover;
+    backface-visibility: hidden;
+}
 
-    #game p {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
 
-    #game .actions {
-        display: flex;
-        justify-content: center;
-    }
-
-    #game .actions button {
-        padding: 8px 16px;
-        font-size: 30px;
-        border-radius: 10px;
-        background-color: #3498db;
-        color: white;
-        border: none;
-    }
-
+/* Further adjust for very small screens */
+@media (max-width: 480px) {
     #game .grid-container {
-        display: grid;
-        justify-content: center;
-        grid-gap: 16px;
-        grid-template-columns: repeat(5, 120px);
-        grid-template-rows: repeat(4, 120px);
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
     }
 
     #game .card {
-        height: 120px;
-        width: 120px;
-        border-radius: 10px;
-        background-color: white;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: all 0.5s ease-in-out;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 3rem;
+        height: 15vw;
+        width: 15vw;
     }
-
-
-    #game .card.flipped {
-        transform: rotateY(180deg);
-    }
-
-    #game .front,
-    #game .back {
-        backface-visibility: hidden;
-        position: absolute;
-        border-radius: 10px;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #game .card .front {
-        transform: rotateY(180deg);
-        z-index: 2;
-    }
-
-    #game .card .back {
-        background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png");
-        background-position: center center;
-        background-size: cover;
-        backface-visibility: hidden;
-    }
-
-
-
+}
