@@ -20,61 +20,56 @@ const cardData = [
 ];
 
 // Login functionality
+// Function to hash the password using SHA-256 (CryptoJS)
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString();
+}
+
+// Function to create and store a new user
+function createUser(username, password) {
+    const hashedPassword = hashPassword(password);
+    const users = JSON.parse(localStorage.getItem('users')) || {}; // Fetch existing users or create an empty object
+    users[username] = hashedPassword; // Store the new user's hashed password
+    localStorage.setItem('users', JSON.stringify(users)); // Save back to localStorage
+    console.log("User created and stored!");
+}
+
+// Function to validate login
+function validateLogin(username, password) {
+    const users = JSON.parse(localStorage.getItem('users')) || {}; // Fetch stored users
+    const hashedPassword = hashPassword(password);
+
+    if (users[username] && users[username] === hashedPassword) {
+        loginSuccess();
+    } else {
+        loginFailure("Invalid username or password");
+    }
+}
+
+// Example: Adding a hardcoded user to Local Storage
+createUser('hacker', '123'); // Hardcoded user: hacker, password: 123
+
+// Login form handling
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // Hardcoded user validation
-    if (username === 'hacker' && password === '123') {
-        loginSuccess();
-    } else {
-        // Hash password before sending
-        const hashedPassword = hashPassword(password);
-        validateUser(username, hashedPassword);
-    }
+    // Validate the user login
+    validateLogin(username, password);
 });
 
+// Login success and failure handlers
 function loginSuccess() {
     document.getElementById('login').classList.remove('active');
-    showPage('menu');
+    showPage('menu'); // Redirect to menu or game page
 }
 
 function loginFailure(message) {
     const loginMessage = document.getElementById('loginMessage');
     loginMessage.textContent = message;
     loginMessage.style.color = 'red';
-}
-
-function validateUser(username, password) {
-    const url = 'https://example.com/api/login'; // Replace with the actual web service URL
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password }) // Send hashed password
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                loginSuccess();
-            } else {
-                loginFailure(data.message || 'Invalid credentials.');
-            }
-        })
-        .catch(error => {
-            loginFailure('Error connecting to the login service.');
-            console.error('Login error:', error);
-        });
-}
-
-
-// Function to hash the password (for real users)
-function hashPassword(password) {
-    return CryptoJS.SHA256(password).toString();
 }
 
 
