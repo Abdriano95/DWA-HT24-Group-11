@@ -4,6 +4,10 @@ let cards = [];
 let firstCard, secondCard;
 let lockBoard = false;
 let score = 0;
+let totalCards = 20;
+let matchedCards = 0;
+let highScores = [];
+
 
 //Card data
 const cardData = [
@@ -20,10 +24,15 @@ const cardData = [
 ];
 
 // Login functionality
+
 // Function to hash the password using SHA-256 (CryptoJS)
 function hashPassword(password) {
     return CryptoJS.SHA256(password).toString();
 }
+
+let loggedInUser = null;
+
+
 
 // Function to create and store a new user
 function createUser(username, password) {
@@ -39,8 +48,10 @@ function validateLogin(username, password) {
     const users = JSON.parse(localStorage.getItem('users')) || {}; // Fetch stored users
     const hashedPassword = hashPassword(password);
 
+
     if (users[username] && users[username] === hashedPassword) {
         console.log("Login successful via local storage");
+        loggedInUser = 'hacker';
         loginSuccess();
     } else {
         console.log("Local login failed, sending login request to server...");
@@ -155,19 +166,20 @@ function flipCard() {
         return;
     }
     secondCard = this;
-    /*
-    score++;
-    document.querySelector(".score").textContent = score;
-    */
-
     lockBoard = true;
-
     checkForMatch();
 }
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
-    isMatch ? disableCards() : unflipCards();
+    if (isMatch) {
+        disableCards();
+        cardMatched();
+    }
+    else {
+        unflipCards();
+    }
+
 }
 
 function disableCards() {
@@ -201,15 +213,78 @@ function restart() {
     generateCards();
 }
 
+
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+
+function saveScore(score) {
+
+    highScores.push(score);
+    highScores.sort((a, b) => a - b);
+
+    if (highScores.length > 5) {
+        highScores = highScores.slice(0, 5);
+    }
+    displayHighScores();
+}
+
+function displayHighScores() {
+
+
+    // Hitta tabellen i DOM och rensa dess innehåll
+    const highscoreTableBody = document.querySelector('#highscore tbody');
+    highscoreTableBody.innerHTML = '';
+
+
+    // Loop genom poänglistan och skapa rader i tabellen
+    highScores.forEach((score, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>Hacker</td>
+            <td>${score}</td>
+        `;
+        highscoreTableBody.appendChild(row);
+
+    });
+}
+
+
+//Game menu
+
+
+function cardMatched() {
+    matchedCards += 2;  // Varje matchning består av två kort
+
+    // Kolla om alla kort är matchade
+    if (matchedCards === totalCards) {
+        gameOver();  // Spelet är slut när alla kort är matchade
+    }
+}
+
+
+function gameOver() {
+    setTimeout(() => {
+        alert('Congratulations! You matched all the cards. Your score is: ' + score);
+        saveScore(score);  // Spara spelarens poäng
+        matchedCards = 0;  // Återställ matchade kort för nästa spel
+        score = 0;  // Återställ poäng för nästa spel
+    }, 500);
+}
+
+
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.style.display = 'none';
     });
     // Show the selected page
     document.getElementById(pageId).style.display = 'block';
+    if (pageId === 'highscore') {
+        displayHighScores();
+    }
 }
 
-//Game menu
 
 function quitGame() {
     setContent('Exiting Game...');

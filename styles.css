@@ -104,11 +104,13 @@ button:hover {
 /* Further adjust for very small screens */
 @media (max-width: 480px) {
     #game .grid-container {
+
         grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
     }
 
     #game .card {
         height: 15vw;
         width: 15vw;
+
     }
 }
