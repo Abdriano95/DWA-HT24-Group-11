@@ -24,63 +24,97 @@ const cardData = [
 ];
 
 // Login functionality
+
+// Function to hash the password using SHA-256 (CryptoJS)
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString();
+}
+
 let loggedInUser = null;
+
+
+
+// Function to create and store a new user
+function createUser(username, password) {
+    const hashedPassword = hashPassword(password);
+    const users = JSON.parse(localStorage.getItem('users')) || {}; // Fetch existing users or create an empty object
+    users[username] = hashedPassword; // Store the new user's hashed password
+    localStorage.setItem('users', JSON.stringify(users)); // Save back to localStorage
+    console.log("User created and stored!");
+}
+
+// Function to validate login
+function validateLogin(username, password) {
+    const users = JSON.parse(localStorage.getItem('users')) || {}; // Fetch stored users
+    const hashedPassword = hashPassword(password);
+
+
+    if (users[username] && users[username] === hashedPassword) {
+        console.log("Login successful via local storage");
+        loggedInUser = 'hacker';
+        loginSuccess();
+    } else {
+        console.log("Local login failed, sending login request to server...");
+        loginFailure("Invalid username or password");
+        sendLoginRequest(username, hashedPassword);
+    }
+}
+
+// Example: Adding a hardcoded user to Local Storage
+createUser('hacker', '123'); // Hardcoded user: hacker, password: 123
+
+// Function to send login request to the web service
+function sendLoginRequest(username, hashedPassword) {
+    const url = 'https://www.kihlman.eu/formcheck.php'; // Web service URL
+
+    // Sending login request using fetch API
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded' // Form URL encoding
+        },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(hashedPassword)}` // Send form data
+    })
+        .then(response => response.text()) // Expect plain text response
+        .then(data => {
+            console.log("Server response:", data); // Logging the server response
+
+            if (data === 'OK') { // The web service returns "OK" if successful
+                console.log("Login successful via server.");
+                loginSuccess(); // Call the success function when login is OK
+            } else {
+                loginFailure('Invalid username or password from web service');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loginFailure('Login request failed');
+        });
+}
+
+// Login form handling
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // Hardcoded user validation
-    if (username === 'hacker' && password === '123') {
-        loggedInUser = 'hacker';
-        loginSuccess();
-    } else {
-        // Hash password before sending
-        const hashedPassword = hashPassword(password);
-        validateUser(username, hashedPassword);
-    }
+    // Validate the user login
+    validateLogin(username, password);
 });
 
+// Login success and failure handlers
 function loginSuccess() {
+    console.log("Login Success!"); // Log success message
     document.getElementById('login').classList.remove('active');
-    showPage('menu');
+    showPage('menu'); // Redirect to menu or game page
 }
 
 function loginFailure(message) {
+    console.log("Login Failure: ", message); // Log failure message
     const loginMessage = document.getElementById('loginMessage');
     loginMessage.textContent = message;
     loginMessage.style.color = 'red';
-}
-
-function validateUser(username, password) {
-    const url = 'https://example.com/api/login'; // Replace with the actual web service URL
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password }) // Send hashed password
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                loginSuccess();
-            } else {
-                loginFailure(data.message || 'Invalid credentials.');
-            }
-        })
-        .catch(error => {
-            loginFailure('Error connecting to the login service.');
-            console.error('Login error:', error);
-        });
-}
-
-
-// Function to hash the password (for real users)
-function hashPassword(password) {
-    return CryptoJS.SHA256(password).toString();
 }
 
 
@@ -179,6 +213,11 @@ function restart() {
     generateCards();
 }
 
+
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+
 function saveScore(score) {
 
     highScores.push(score);
@@ -207,8 +246,12 @@ function displayHighScores() {
             <td>${score}</td>
         `;
         highscoreTableBody.appendChild(row);
+
     });
 }
+
+
+//Game menu
 
 
 function cardMatched() {
@@ -241,6 +284,7 @@ function showPage(pageId) {
         displayHighScores();
     }
 }
+
 
 function quitGame() {
     setContent('Exiting Game...');
