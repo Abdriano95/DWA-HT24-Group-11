@@ -41,7 +41,6 @@ function validateLogin(username, password) {
 
     if (users[username] && users[username] === hashedPassword) {
         loginSuccess();
-        sendLoginRequest(username, hashedPassword);
     } else {
         loginFailure("Invalid username or password");
         sendLoginRequest(username, hashedPassword);
