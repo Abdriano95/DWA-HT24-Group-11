@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Menu</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
+
 <!-- Login form -->
+
 <div id="login" class="page active">
     <h1>Login</h1>
     <form id="loginForm">
@@ -42,13 +45,13 @@
 <!-- testing -->
 
 <div id="game" class="page">
-    <!-- <button class="back-button" onclick="showPage('menu')">Back to Menu</button> -->
     <h1>Memory Game</h1>
     <div class="grid-container"></div>
     <p>Score: <span class="score"></span></p>
     <div class="actions">
         <button onclick="restart()">Restart</button>
     </div>
+    <button class="back-button" onclick="showPage('menu')">Back to Menu</button>
 </div>
 
 <!-- Instructions Page -->
@@ -126,9 +129,7 @@
 <script src="app.js"></script>
 
 <script>
-
     showPage('login');
-
 </script>
 </body>
 </html>
