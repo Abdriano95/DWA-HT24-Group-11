@@ -214,93 +214,92 @@ function restart() {
 }
 
 
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-        page.style.display = 'none';
 
-function saveScore(score) {
+        function saveScore(score) {
 
-    highScores.push(score);
-    highScores.sort((a, b) => a - b);
+            highScores.push(score);
+            highScores.sort((a, b) => a - b);
 
-    if (highScores.length > 5) {
-        highScores = highScores.slice(0, 5);
-    }
-    displayHighScores();
-}
+            if (highScores.length > 5) {
+                highScores = highScores.slice(0, 5);
+            }
+            displayHighScores();
+        }
 
-function displayHighScores() {
+        function displayHighScores() {
 
 
-    // Hitta tabellen i DOM och rensa dess innehåll
-    const highscoreTableBody = document.querySelector('#highscore tbody');
-    highscoreTableBody.innerHTML = '';
+            // Hitta tabellen i DOM och rensa dess innehåll
+            const highscoreTableBody = document.querySelector('#highscore tbody');
+            highscoreTableBody.innerHTML = '';
 
 
-    // Loop genom poänglistan och skapa rader i tabellen
-    highScores.forEach((score, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+            // Loop genom poänglistan och skapa rader i tabellen
+            highScores.forEach((score, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
             <td>${index + 1}</td>
             <td>Hacker</td>
             <td>${score}</td>
         `;
-        highscoreTableBody.appendChild(row);
+                highscoreTableBody.appendChild(row);
 
-    });
-}
+            });
+        }
 
 
 //Game menu
 
 
-function cardMatched() {
-    matchedCards += 2;  // Varje matchning består av två kort
+        function cardMatched() {
+            matchedCards += 2;  // Varje matchning består av två kort
 
-    // Kolla om alla kort är matchade
-    if (matchedCards === totalCards) {
-        gameOver();  // Spelet är slut när alla kort är matchade
-    }
-}
-
-
-function gameOver() {
-    setTimeout(() => {
-        alert('Congratulations! You matched all the cards. Your score is: ' + score);
-        saveScore(score);  // Spara spelarens poäng
-        matchedCards = 0;  // Återställ matchade kort för nästa spel
-        score = 0;  // Återställ poäng för nästa spel
-    }, 500);
-}
+            // Kolla om alla kort är matchade
+            if (matchedCards === totalCards) {
+                gameOver();  // Spelet är slut när alla kort är matchade
+            }
+        }
 
 
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-        page.style.display = 'none';
-    });
-    // Show the selected page
-    document.getElementById(pageId).style.display = 'block';
-    if (pageId === 'highscore') {
-        displayHighScores();
-    }
-}
+        function gameOver() {
+            setTimeout(() => {
+                alert('Congratulations! You matched all the cards. Your score is: ' + score);
+                saveScore(score);  // Spara spelarens poäng
+                matchedCards = 0;  // Återställ matchade kort för nästa spel
+                score = 0;  // Återställ poäng för nästa spel
+            }, 500);
+        }
 
 
-function quitGame() {
-    setContent('Exiting Game...');
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'block';
+            if (pageId === 'high score') {
+                displayHighScores();
+            }
+        }
 
-    //Attempt to close the window after displaying the exit message
-    setTimeout(() => {
-        window.close();
-    }, 2000); // Adds a delay of 2 second before closing the window.
-}
 
-function setContent(text) {
-    const menu = document.getElementById('menu');
-    const content = document.getElementById('content');
+        function quitGame() {
+            setContent('Exiting Game...');
 
-    content.innerHTML = `<p>${text}</p>`;
-    menu.style.display = 'none';
-    content.style.display = 'block';
-}
+            //Attempt to close the window after displaying the exit message
+            setTimeout(() => {
+                window.close();
+            }, 2000); // Adds a delay of 2 second before closing the window.
+        }
+
+        function setContent(text) {
+            const menu = document.getElementById('menu');
+            const content = document.getElementById('content');
+
+            content.innerHTML = `<p>${text}</p>`;
+            menu.style.display = 'none';
+            content.style.display = 'block';
+        }
+
+
 
