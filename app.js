@@ -40,8 +40,10 @@ function validateLogin(username, password) {
     const hashedPassword = hashPassword(password);
 
     if (users[username] && users[username] === hashedPassword) {
+        console.log("Login successful via local storage");
         loginSuccess();
     } else {
+        console.log("Local login failed, sending login request to server...");
         loginFailure("Invalid username or password");
         sendLoginRequest(username, hashedPassword);
     }
@@ -64,8 +66,11 @@ function sendLoginRequest(username, hashedPassword) {
     })
         .then(response => response.text()) // Expect plain text response
         .then(data => {
+            console.log("Server response:", data); // Logging the server response
+
             if (data === 'OK') { // The web service returns "OK" if successful
-                loginSuccess();
+                console.log("Login successful via server.");
+                loginSuccess(); // Call the success function when login is OK
             } else {
                 loginFailure('Invalid username or password from web service');
             }
@@ -89,11 +94,13 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
 // Login success and failure handlers
 function loginSuccess() {
+    console.log("Login Success!"); // Log success message
     document.getElementById('login').classList.remove('active');
     showPage('menu'); // Redirect to menu or game page
 }
 
 function loginFailure(message) {
+    console.log("Login Failure: ", message); // Log failure message
     const loginMessage = document.getElementById('loginMessage');
     loginMessage.textContent = message;
     loginMessage.style.color = 'red';
