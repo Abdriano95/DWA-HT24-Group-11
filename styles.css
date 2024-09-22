@@ -16,7 +16,7 @@ button {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #3498db; /* Original blue color */
+    background-color: #3498db;
     border: none;
     color: white;
     font-size: 16px;
@@ -29,16 +29,16 @@ button:hover {
     background-color: #2980b9; /* Darker blue on hover */
 }
 
-/* Make the grid container responsive */
+/* grid container responsive */
 #game .grid-container {
     display: grid;
     justify-content: center;
-    grid-gap: 1rem; /* Keep some gap between the cards */
+    grid-gap: 1rem; /* gap between the cards */
     grid-template-columns: repeat(5, 1fr); /* 5 columns, flexible sizing */
-    grid-template-rows: auto; /* Let the rows adjust automatically */
+    grid-template-rows: auto; /* rows adjust automatically */
 }
 
-/* Adjust grid layout for smaller screens */
+/* layout for smaller screens */
 @media (max-width: 768px) {
     #game .grid-container {
         grid-template-columns: repeat(4, 1fr); /* 4 columns on smaller screens */
@@ -55,7 +55,7 @@ button:hover {
 #game .card {
     height: 10vw; /* Scales based on viewport width */
     width: 10vw;
-    max-width: 120px; /* Set a maximum size for larger screens */
+    max-width: 120px; /* maximum size for larger screens */
     max-height: 120px;
     border-radius: 10px;
     background-color: white;
@@ -70,10 +70,10 @@ button:hover {
 
 /* Fix for card flipping */
 #game .card.flipped {
-    transform: rotateY(180deg); /* This rotates the card to show the front */
+    transform: rotateY(180deg);
 }
 
-/* Ensure that the front and back faces are correctly positioned */
+/* front and back faces are correctly positioned */
 #game .front,
 #game .back {
     backface-visibility: hidden;
@@ -89,23 +89,23 @@ button:hover {
 }
 
 #game .card .front {
-    transform: rotateY(180deg); /* Hide the front face initially */
-    z-index: 2; /* Ensure the front face shows when flipped */
+    transform: rotateY(180deg); /* Hide front of card */
+    z-index: 2; /* show when flipped */
 }
 
 #game .card .back {
-    background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png"); /* Update this to your correct image path */
+    background-image: url("/images/pattern_flower-6_1_2_0-0_0_1__2a2a30_ecc94b.png");
     background-position: center center;
     background-size: cover;
     backface-visibility: hidden;
 }
 
 
-/* Further adjust for very small screens */
+/* very small screens */
 @media (max-width: 480px) {
     #game .grid-container {
 
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     #game .card {
