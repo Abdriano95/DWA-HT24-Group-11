@@ -7,7 +7,7 @@ let score = 0;
 let totalCards = 20;
 let matchedCards = 0;
 let highScores = [];
-
+let loggedInUser = null; // Login functionality
 
 //Card data
 const cardData = [
@@ -23,14 +23,10 @@ const cardData = [
     {name: 'card10', emoji: '🦓'}
 ];
 
-// Login functionality
-let loggedInUser = null;
-
 // Function to hash the password using SHA-256 (CryptoJS)
 function hashPassword(password) {
     return CryptoJS.SHA256(password).toString();
 }
-
 
 // Function to create and store a new user
 function createUser(username, password) {
@@ -58,7 +54,7 @@ function validateLogin(username, password) {
     }
 }
 
-// Example: Adding a hardcoded user to Local Storage
+//Adding a hardcoded user to Local Storage
 createUser('hacker', '123'); // Hardcoded user: hacker, password: 123
 
 // Function to send login request to the web service
@@ -115,15 +111,13 @@ function loginFailure(message) {
     loginMessage.style.color = 'red';
 }
 
-
-
 //Game logic
 document.querySelector(".score").textContent = score;
 cards = [...cardData, ...cardData];
 shuffleCards();
 generateCards();
 
-
+//Function to shuffle cards
 function shuffleCards() {
     let currentIndex = cards.length, randomIndex, temporaryValue;
     while (currentIndex !== 0) {
@@ -135,6 +129,7 @@ function shuffleCards() {
     }
 }
 
+//Function to generate cards
 function generateCards() {
     gridContainer.innerHTML = ''; // Clear existing cards
     cards.forEach(card => {
@@ -153,6 +148,7 @@ function generateCards() {
     });
 }
 
+//Function to flip the cards
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
@@ -168,6 +164,7 @@ function flipCard() {
     checkForMatch();
 }
 
+// Function to check if the cards that has been flipped are matched
 function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
     if (isMatch) {
@@ -202,6 +199,7 @@ function resetBoard() {
     lockBoard = false;
 }
 
+// Function to restart the game
 function restart() {
     resetBoard();
     shuffleCards();
@@ -210,9 +208,7 @@ function restart() {
     gridContainer.innerHTML = "";
     generateCards();
 }
-
-
-
+// Saves the highscore
 function saveScore(score) {
     const userScore = {username: loggedInUser, score: score};
     highScores.push(userScore);
@@ -224,13 +220,14 @@ function saveScore(score) {
     displayHighScores();
 }
 
+// Displays the highscores in the 'highscore'-page
 function displayHighScores() {
 
     const highscoreTableBody = document.querySelector('#highscore tbody');
     highscoreTableBody.innerHTML = '';
 
 
-    // Loop genom poänglistan och skapa rader i tabellen
+    // Iterates over the highscore list and displays them
     highScores.forEach((score, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -243,30 +240,25 @@ function displayHighScores() {
     });
 }
 
-
 //Game menu
-
-
 function cardMatched() {
-    matchedCards += 2;  // Varje matchning består av två kort
+    matchedCards += 2;  // Every matching contains two cards
 
-    // Kolla om alla kort är matchade
+    // checks if all cards are matched
     if (matchedCards === totalCards) {
-        gameOver();  // Spelet är slut när alla kort är matchade
+        gameOver();  // Ends the game if all the cards have been matched
     }
 }
-
 
 function gameOver() {
     setTimeout(() => {
         alert('Congratulations! You matched all the cards. Your score is: ' + score);
-        saveScore(score);  // Spara spelarens poäng
+        saveScore(score);  // Saves the players highscore
         displayHighScores();
-        matchedCards = 0;  // Återställ matchade kort för nästa spel
-        score = 0;  // Återställ poäng för nästa spel
+        matchedCards = 0;  // Resetts the matched cards for the next game.
+        score = 0;  // resets the highscore for the next game
     }, 500);
 }
-
 
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
@@ -278,7 +270,6 @@ function showPage(pageId) {
         displayHighScores();
     }
 }
-
 
 function quitGame() {
     setContent('Exiting Game...');
@@ -297,6 +288,3 @@ function setContent(text) {
     menu.style.display = 'none';
     content.style.display = 'block';
 }
-
-
-
