@@ -7,7 +7,7 @@ let score = 0;
 let totalCards = 20;
 let matchedCards = 0;
 let highScores = [];
-
+let loggedInUser = null; // Login functionality
 
 //Card data
 const cardData = [
@@ -22,9 +22,6 @@ const cardData = [
     {name: 'card9', emoji: '🦒'},
     {name: 'card10', emoji: '🦓'}
 ];
-
-// Login functionality
-let loggedInUser = null;
 
 // Function to hash the password using SHA-256 (CryptoJS)
 function hashPassword(password) {
