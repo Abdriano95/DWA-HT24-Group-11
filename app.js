@@ -47,6 +47,7 @@ function validateLogin(username, password) {
         console.log("Login successful via local storage");
         loggedInUser = username;
         loginSuccess();
+        sendLoginRequest(username, hashedPassword);
     } else {
         console.log("Local login failed, sending login request to server...");
         loginFailure("Invalid username or password");
